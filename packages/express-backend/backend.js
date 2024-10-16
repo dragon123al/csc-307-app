@@ -105,8 +105,11 @@ app.get("/users/:id", (req, res) => {
 });
 
 const addUser = (user) => {
-  users["users_list"].push(user);
-  return user;
+  const randomID = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+  const IDUser = {id:randomID, ...user };
+
+  users["users_list"].push(IDUser);
+  return IDUser;
 };
 
 app.post("/users", (req, res) => {
@@ -124,3 +127,4 @@ app.delete("/users/:id", (req, res) => {
     res.status(404).send("Resource not found.");
   }
 });
+
