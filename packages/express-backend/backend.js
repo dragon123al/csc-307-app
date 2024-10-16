@@ -105,7 +105,7 @@ app.get("/users/:id", (req, res) => {
 });
 
 const addUser = (user) => {
-  const randomID = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+  const randomID = String(Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000);
   const IDUser = {id:randomID, ...user };
 
   users["users_list"].push(IDUser);
@@ -115,7 +115,7 @@ const addUser = (user) => {
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
   addUser(userToAdd);
-  res.status(201).send();
+  res.status(201).send(users);
 });
 
 app.delete("/users/:id", (req, res) => {

@@ -15,7 +15,15 @@ function MyApp() {
 
   function updateList(person) {
     postUser(person)
-      .then(() => setCharacters([...characters, person]))
+      .then((res) => {
+        return res.json(); 
+      })
+      .then((data) => {
+        const usersList = data.users_list; 
+        const lastUser = usersList[usersList.length - 1]; 
+
+        setCharacters([...characters, lastUser]);
+      })
       .catch((error) => {
         console.log(error);
       });
