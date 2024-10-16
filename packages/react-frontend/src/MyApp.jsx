@@ -17,7 +17,6 @@ function MyApp() {
   }
 
   function removeOneCharacter(index) {
-
     fetchUsers()
       .then((res) => res.json())
       .then((json) => {
