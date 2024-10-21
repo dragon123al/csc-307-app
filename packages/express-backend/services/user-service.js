@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 import userModel from "../models/user.js";
 
-// import dotenv from "dotenv";
-// dotenv.config();
-// const { MONGO_CONNECTION_STRING } = process.env;
+import dotenv from "dotenv";
+dotenv.config();
+const { MONGO_CONNECTION_STRING } = process.env;
 
-// mongoose.set("debug", true);
-
-// mongoose
-//   .connect(MONGO_CONNECTION_STRING, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .catch((error) => console.log(error));
+mongoose.set("debug", true);
 
 mongoose
-  .connect("mongodb://localhost:27017/users", {
+  .connect(MONGO_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .catch((error) => console.log(error));
+
+// mongoose
+//   .connect("mongodb://localhost:27017/users", {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .catch((error) => console.log(error));
 
 
 function getUsers(name, job) {
