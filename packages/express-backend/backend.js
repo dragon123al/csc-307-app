@@ -2,39 +2,50 @@
 import express from "express";
 import cors from "cors";
 import userService from "./services/user-service.js";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+
+dotenv.config();
+
+const { MONGO_CONNECTION_STRING } = process.env;
+
+mongoose.set("debug", true);
+mongoose
+  .connect(MONGO_CONNECTION_STRING)
+  .catch((error) => console.log(error));
 
 const app = express();
 const port = 8000;
 
-const users = {
-    users_list: [
-      {
-        id: "xyz789",
-        name: "Charlie",
-        job: "Janitor"
-      },
-      {
-        id: "abc123",
-        name: "Mac",
-        job: "Bouncer"
-      },
-      {
-        id: "ppp222",
-        name: "Mac",
-        job: "Professor"
-      },
-      {
-        id: "yat999",
-        name: "Dee",
-        job: "Aspring actress"
-      },
-      {
-        id: "zap555",
-        name: "Dennis",
-        job: "Bartender"
-      }
-    ]
-  };
+// const users = {
+//     users_list: [
+//       {
+//         id: "xyz789",
+//         name: "Charlie",
+//         job: "Janitor"
+//       },
+//       {
+//         id: "abc123",
+//         name: "Mac",
+//         job: "Bouncer"
+//       },
+//       {
+//         id: "ppp222",
+//         name: "Mac",
+//         job: "Professor"
+//       },
+//       {
+//         id: "yat999",
+//         name: "Dee",
+//         job: "Aspring actress"
+//       },
+//       {
+//         id: "zap555",
+//         name: "Dennis",
+//         job: "Bartender"
+//       }
+//     ]
+//   };
 
 app.use(cors());
 app.use(express.json());
@@ -63,14 +74,14 @@ app.get("/users", (req, res) => {
     });
 });
 
-const deleteUserById = (id) => {
-  const index = users["users_list"].findIndex((user) => user["id"] === id);
-  if (index !== -1) {
-    users["users_list"].splice(index, 1);
-    return true;
-  }
-  return false;
-};
+// const deleteUserById = (id) => {
+//   const index = users["users_list"].findIndex((user) => user["id"] === id);
+//   if (index !== -1) {
+//     users["users_list"].splice(index, 1);
+//     return true;
+//   }
+//   return false;
+// };
 
 app.get("/users/:id", (req, res) => {
   const id = req.params["id"];
@@ -89,12 +100,12 @@ app.post("/users", (req, res) => {
   });
 });
 
-app.delete("/users/:id", (req, res) => {
-  const id = req.params["id"];
-  const deleted = deleteUserById(id);
-  if (deleted) {
-    res.status(204).send(); 
-  } else {
-    res.status(404).send("Resource not found.");
-  }
-});
+// app.delete("/users/:id", (req, res) => {
+//   const id = req.params["id"];
+//   const deleted = deleteUserById(id);
+//   if (deleted) {
+//     res.status(204).send(); 
+//   } else {
+//     res.status(404).send("Resource not found.");
+//   }
+// });
