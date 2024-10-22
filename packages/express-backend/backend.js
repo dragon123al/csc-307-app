@@ -74,15 +74,6 @@ app.get("/users", (req, res) => {
     });
 });
 
-// const deleteUserById = (id) => {
-//   const index = users["users_list"].findIndex((user) => user["id"] === id);
-//   if (index !== -1) {
-//     users["users_list"].splice(index, 1);
-//     return true;
-//   }
-//   return false;
-// };
-
 app.get("/users/:id", (req, res) => {
   const id = req.params["id"];
   userService.findUserById(id).then((result) => {
@@ -100,12 +91,12 @@ app.post("/users", (req, res) => {
   });
 });
 
-// app.delete("/users/:id", (req, res) => {
-//   const id = req.params["id"];
-//   const deleted = deleteUserById(id);
-//   if (deleted) {
-//     res.status(204).send(); 
-//   } else {
-//     res.status(404).send("Resource not found.");
-//   }
-// });
+app.delete("/users/:id", (req, res) => {
+  const id = req.params["id"];
+  const deleted = userService.deleteUserById(id);
+  if (deleted) {
+    res.status(204).send(); 
+  } else {
+    res.status(404).send("Resource not found.");
+  }
+});

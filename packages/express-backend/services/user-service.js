@@ -30,8 +30,14 @@ function getUsers(name, job) {
     promise = findUserByName(name);
   } else if (job && !name) {
     promise = findUserByJob(job);
+  } else {
+    promise =findByNameJob(name, job);
   }
   return promise;
+}
+
+function findByNameJob(name, job) {
+  return userModel.find({ name: name, job: job });
 }
 
 function findUserById(id) {
@@ -52,10 +58,24 @@ function findUserByJob(job) {
   return userModel.find({ job: job });
 }
 
+function deleteUserById(id) {
+  return userModel.findByIdAndDelete(id)
+    .then(result => {
+      if (!result) {
+        throw new Error('User not found');
+      }
+      return result; 
+    })
+    .catch(error => {
+      throw new Error('Error deleting user: ' + error.message);
+    });
+}
+
 export default {
   addUser,
   getUsers,
   findUserById,
   findUserByName,
   findUserByJob,
+  deleteUserById,
 };
