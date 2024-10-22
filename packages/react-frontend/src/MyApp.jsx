@@ -20,7 +20,7 @@ function MyApp() {
     fetchUsers()
       .then((res) => res.json())
       .then((json) => {
-        const userID = json["users_list"][index].id
+        const userID = json["users_list"][index]._id
         deleteUsers(userID)
         .then(() => {
           const updated = characters.filter((character, i) => {
@@ -68,14 +68,19 @@ function MyApp() {
   }, []);
 
   function postUser(person) {
+    const { name, job } = person;    
+    const userToPost = {
+      name: name,
+      job: job
+    };
+
     const promise = fetch("Http://localhost:8000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(person)
+      body: JSON.stringify(userToPost)
     });
-
     return promise;
   }
 
